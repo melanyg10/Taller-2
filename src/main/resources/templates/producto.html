@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="/estilos.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+
+    <!-- Si agregaste esto a tu estilos.css en el paso anterior, puedes borrar esta etiqueta <style> -->
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background-color: #87CEFA; /* Azul claro para los encabezados */
+            color: #003366;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #f0f8ff; /* Efecto hover al pasar el ratón */
+        }
+    </style>
+</head>
+
+<body>
+    
+    <!-- Envolvemos la tabla en el contenedor y lo hacemos un poco más ancho -->
+    <div class="contenedor" style="max-width: 800px;">
+
+        <h1 style="color: #003366; text-align: center;">Lista de Productos</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Fecha de creación</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="producto : ${Producto}">
+                    <td th:text="${producto.id}"></td>
+                    <td th:text="${producto.nombre}"></td>
+                    <td th:text="${producto.precio}"></td>
+                    <td th:text="${producto.createAt}"></td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    
+</body>
+</html>

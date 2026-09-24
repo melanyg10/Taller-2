@@ -1,0 +1,89 @@
+/* Estilos generales para un fondo moderno y limpio */
+    body {
+        font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background-color: #f0f4f8; /* Un fondo gris-azul muy suave */
+        color: #333;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Contenedor tipo tarjeta para tus formularios y listas */
+    .contenedor {
+        background: white;
+        padding: 40px;
+        border-radius: 12px; /* Bordes redondeados modernos */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* Sombra suave para dar profundidad */
+        max-width: 600px;
+        width: 100%;
+    }
+
+    /* ---------------------------------------------------
+       CAMPOS PARA INSERTAR COSAS (Inputs interactivos)
+       --------------------------------------------------- */
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="number"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 14px;
+        margin: 8px 0 20px 0;
+        display: inline-block;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px; 
+        box-sizing: border-box;
+        background-color: #f8fafc;
+        transition: all 0.3s ease; /* Esto hace que el cambio de color sea suave e interactivo */
+        font-size: 15px;
+    }
+
+    /* Efecto cuando el usuario hace clic para escribir (se vuelve azul claro) */
+    input:focus, select:focus, textarea:focus {
+        border-color: #87CEFA; /* Color Azul Claro */
+        background-color: #ffffff;
+        outline: none;
+        box-shadow: 0 0 10px rgba(135, 206, 250, 0.4); /* Resplandor azul */
+    }
+
+    /* ---------------------------------------------------
+       BOTONES PARA MODIFICAR / GUARDAR / ENVIAR
+       --------------------------------------------------- */
+    button, 
+    .btn, 
+    input[type="submit"],
+    a.btn-modificar { /* Estilo para enlaces que actúan como botones */
+        background-color: #87CEFA; /* Azul claro principal */
+        color: #003366; /* Texto oscuro para contrastar y leer fácil */
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        transition: background-color 0.3s ease, transform 0.1s ease; /* Interactividad */
+    }
+
+    /* Efecto cuando el ratón pasa por encima del botón */
+    button:hover, 
+    .btn:hover, 
+    input[type="submit"]:hover,
+    a.btn-modificar:hover {
+        background-color: #5bb4fa; /* Un azul un poco más vibrante */
+        transform: translateY(-2px); /* El botón se "levanta" ligeramente */
+        box-shadow: 0 4px 10px rgba(91, 180, 250, 0.4);
+    }
+
+    /* Efecto al hacer clic en el botón */
+    button:active, 
+    .btn:active,
+    a.btn-modificar:active {
+        transform: translateY(0); /* Vuelve a su lugar */
+    }

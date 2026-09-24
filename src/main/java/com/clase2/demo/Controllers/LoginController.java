@@ -1,0 +1,77 @@
+package com.clase2.demo.Controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.clase2.demo.Modelos.DAO.IUsuarioDAO;
+import com.clase2.demo.Modelos.Entity.Usuario;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+@RequestMapping("/login")
+public class LoginController {
+
+    @Autowired
+    private IUsuarioDAO usuarioDAO;
+
+    // Muestra el formulario de login
+    @GetMapping
+    public String mostrarLogin() {
+        return "login";
+    }
+
+    // Procesa el formulario de login
+    @PostMapping
+    public String procesarLogin(
+            @RequestParam String correo,
+            @RequestParam String contrasena,
+            HttpSession session,
+            Model model) {
+
+        // Paso 1: Buscar el usuario por correo en la base de datos
+        Usuario usuario = usuarioDAO.findByCorreo(correo);
+
+        // Paso 2: Si no existe ningún usuario con ese correo → credenciales incorrectas
+        if (usuario == null) {
+            model.addAttribute("error", "Correo o contraseña incorrectos.");
+            return "login";
+        }
+
+        // Paso 3: Validar que la contraseña ingresada coincida con la almacenada
+        if (!usuario.getContrasena().equals(contrasena)) {
+            model.addAttribute("error", "Correo o contraseña incorrectos.");
+            return "login";
+        }
+
+        // Paso 4 y 5: Validar si la cuenta está activa
+        if (!usuario.getEstado().equalsIgnoreCase("ACTIVO")) {
+            model.addAttribute("error", "Tu cuenta no está activa. Estado actual: " + usuario.getEstado());
+            return "login";
+        }
+
+        // Paso 6 y 7: Credenciales correctas y cuenta activa → guardar sesión
+        session.setAttribute("usuarioId", usuario.getId());
+        session.setAttribute("usuarioCorreo", usuario.getCorreo());
+        session.setAttribute("usuarioRol", usuario.getRol());
+
+        // Redirigir según el rol del usuario
+        if (usuario.getRol().equalsIgnoreCase("ADMIN")) {
+            return "redirect:/admin";
+        } else {
+            return "redirect:/home";
+        }
+    }
+
+    // Cierra la sesión del usuario actual
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
+}
