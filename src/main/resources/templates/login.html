@@ -21,17 +21,18 @@
             method="post"   → envía los datos como POST
         -->
         <form action="/login" method="post">
-
             <label for="correo">Correo:</label>
-            <!-- Eliminamos los <br> y agregamos un placeholder -->
             <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required>
 
             <label for="contrasena">Contraseña:</label>
             <input type="password" id="contrasena" name="contrasena" placeholder="Ingresa tu contraseña" required>
 
             <button type="submit">Ingresar</button>
-
         </form>
+        
+        <div style="text-align: center; margin-top: 15px;">
+            <p>¿No tienes una cuenta? <a href="/login/registro" style="color: #003366; font-weight: bold;">Regístrate aquí</a></p>
+        </div>
         
     </div>
 

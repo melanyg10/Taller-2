@@ -8,4 +8,6 @@ public interface IUsuarioDAO {
     // Retorna null si no existe ningún usuario con ese correo
     public Usuario findByCorreo(String correo);
 
+    public void save(Usuario usuario);
+
 }

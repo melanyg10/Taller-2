@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="/estilos.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
 
-    <!-- Si agregaste esto a tu estilos.css en el paso anterior, puedes borrar esta etiqueta <style> -->
     <style>
         table {
             width: 100%;
@@ -31,8 +30,8 @@
 
 <body>
     
-    <!-- Envolvemos la tabla en el contenedor y lo hacemos un poco más ancho -->
-    <div class="contenedor" style="max-width: 800px;">
+    <!-- Envolvemos la tabla en el contenedor y aumentamos un poco el ancho para que quepan bien las columnas -->
+    <div class="contenedor" style="max-width: 950px;">
 
         <h1 style="color: #003366; text-align: center;">Lista de Productos</h1>
 
@@ -41,8 +40,10 @@
                 <tr>
                     <th>ID</th>
                     <th>Nombre</th>
+                    <th>Descripción</th>
                     <th>Precio</th>
-                    <th>Fecha de creación</th>
+                    <th>Stock</th>
+                    
                 </tr>
             </thead>
 
@@ -50,8 +51,10 @@
                 <tr th:each="producto : ${Producto}">
                     <td th:text="${producto.id}"></td>
                     <td th:text="${producto.nombre}"></td>
+                    <td th:text="${producto.descripcion}"></td>
                     <td th:text="${producto.precio}"></td>
-                    <td th:text="${producto.createAt}"></td>
+                    <td th:text="${producto.stock}"></td>
+    
                 </tr>
             </tbody>
         </table>

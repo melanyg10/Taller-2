@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="/estilos.css">
     <meta charset="UTF-8">
@@ -15,11 +15,20 @@
 
         <form th:object="${producto}" th:action="@{/Producto/guardar}" method="post">
             
-            <label for="nombre">Nombre del Producto:</label>
-            <input type="text" th:field="*{nombre}" id="nombre" placeholder="Ej: Teclado mecánico"> 
+            <!-- Campo Oculto para el ID (Vital para cuando vayas a editar productos) -->
+            <input type="hidden" th:field="*{id}" />
 
-            <label for="precio">Precio:</label>
-            <input type="number" th:field="*{precio}" id="precio" step="0.01" placeholder="Ej: 150000"> 
+            <label for="nombre">Nombre del Producto:</label>
+            <input type="text" th:field="*{nombre}" id="nombre" placeholder="Ej: Teclado mecánico" required> 
+
+            <label for="descripcion">Descripción:</label>
+            <textarea th:field="*{descripcion}" id="descripcion" placeholder="Ej: Teclado mecánico RGB switch azul" rows="3" required></textarea>
+
+            <label for="precio">Precio (Valor Unitario):</label>
+            <input type="number" th:field="*{precio}" id="precio" step="0.01" placeholder="Ej: 150000" required> 
+
+            <label for="stock">Stock (Unidades disponibles):</label>
+            <input type="number" th:field="*{stock}" id="stock" min="0" placeholder="Ej: 10" required> 
 
             <!-- Este botón ya tomará el estilo azul y el efecto hover gracias a la etiqueta <button> -->
             <button type="submit">Guardar en Base de Datos</button>

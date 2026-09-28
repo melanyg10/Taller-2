@@ -34,4 +34,15 @@ public class UsuarioDAOImp implements IUsuarioDAO {
         }
         return resultados.get(0);
     }
+
+    @Transactional 
+    @Override 
+    public void save(Usuario usuario){
+        if(usuario.getId() != null && usuario.getId() > 0){
+            em.merge(usuario);
+    
+        }else{
+            em.persist(usuario);
+        }
+    }
 }

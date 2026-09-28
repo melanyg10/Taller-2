@@ -22,6 +22,16 @@ public class ProductoDAOImp implements IProductoDAO{
         return em.createQuery( "from Producto").getResultList();
     }
 
+    @Transactional 
+    @Override 
+    public void save(Producto producto){
+        if (producto.getId() != null && producto.getId() > 0){
+            em.merge(producto);//actualiza si ya existe un ID
+        }else{
+            em.persist(producto);//crea uno nuevo si no tiene ID
+        }
+    }
+
 
     
 }

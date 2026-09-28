@@ -74,4 +74,32 @@ public class LoginController {
         session.invalidate();
         return "redirect:/login";
     }
+
+    @GetMapping("/registro")//muestra form registro
+    public String mostrarRegistro(Model model){
+        model.addAttribute("usuario", new Usuario());// se pasa un usuario vacio al form
+        return "registro";
+    }
+
+    @PostMapping("/registro")//procesa y guarda el registro
+    public String procesarRegistro(
+        @RequestParam String correo,
+        @RequestParam String contrasena,
+        Model model){
+
+            if(usuarioDAO.findByCorreo(correo) != null){
+                model.addAttribute("error", "El correo ya está registrado");
+                return "registro";
+            }
+
+            Usuario nuevoUsuario = new Usuario();
+            nuevoUsuario.setCorreo(correo);
+            nuevoUsuario.setContrasena(contrasena);
+            nuevoUsuario.setEstado("Pendiente");//asi es el estado inicial requerido
+            nuevoUsuario.setRol("Por asignar");
+
+            usuarioDAO.save(nuevoUsuario);
+            model.addAttribute("mensaje", "Registro exitoso, tu cuenta debe ser aprobada por un administrador");
+            return "login";
+        }
 }

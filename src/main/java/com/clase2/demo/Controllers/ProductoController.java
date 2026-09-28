@@ -1,11 +1,14 @@
 package com.clase2.demo.Controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.clase2.demo.Modelos.DAO.IProductoDAO;
@@ -39,4 +42,17 @@ public class ProductoController {
         return "formulario-producto"; 
     }
     
+
+    @PostMapping("/guardar")
+    public String guardarProducto(@ModelAttribute Producto producto) {
+        //el stock no puede ser negativo
+        if(producto.getStock() < 0){
+
+            producto.setStock(0);
+        }
+        
+        uss.save(producto);
+
+        return "redirect:/Producto/listar";
+    }
 }

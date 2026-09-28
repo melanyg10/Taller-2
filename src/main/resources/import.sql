@@ -1,0 +1,1 @@
+INSERT INTO usuarios (correo, contrasena, estado, rol) VALUES ('admin@sistema.com', 'admin123', 'ACTIVO', 'ADMIN');
