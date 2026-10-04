@@ -1,42 +1,35 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="/estilos.css">
     <meta charset="UTF-8">
-    <title>Crear Producto</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Producto</title>
+    <link rel="stylesheet" th:href="@{/estilos.css}">
 </head>
 <body>
+    <div th:replace="~{menu :: navbar}"></div>
+    <main class="contenedor">
+        <h2 th:text="${producto.id == null ? 'Crear nuevo producto' : 'Editar producto'}"></h2>
 
-    <!-- Aquí abrimos el contenedor tipo tarjeta -->
-    <div class="contenedor">
-        
-        <!-- Centramos el título y le damos un color acorde al diseño -->
-        <h1 th:text="${titulo}" style="color: #003366; text-align: center;"></h1>
+        <!-- ANTES: /producto/guardar (minúscula) -> 404, el controlador es /Producto -->
+        <form th:action="@{/Producto/guardar}" th:object="${producto}" method="post">
+            <input type="hidden" th:field="*{id}">
 
-        <form th:object="${producto}" th:action="@{/Producto/guardar}" method="post">
-            
-            <!-- Campo Oculto para el ID (Vital para cuando vayas a editar productos) -->
-            <input type="hidden" th:field="*{id}" />
+            <label>Nombre del producto</label>
+            <input type="text" th:field="*{nombre}" required maxlength="100">
 
-            <label for="nombre">Nombre del Producto:</label>
-            <input type="text" th:field="*{nombre}" id="nombre" placeholder="Ej: Teclado mecánico" required> 
+            <label>Descripción</label>
+            <textarea th:field="*{descripcion}" required rows="3"></textarea>
 
-            <label for="descripcion">Descripción:</label>
-            <textarea th:field="*{descripcion}" id="descripcion" placeholder="Ej: Teclado mecánico RGB switch azul" rows="3" required></textarea>
+            <label>Valor unitario ($)</label>
+            <input type="number" th:field="*{valorUnitario}" min="0.01" step="0.01" required>
 
-            <label for="precio">Precio (Valor Unitario):</label>
-            <input type="number" th:field="*{precio}" id="precio" step="0.01" placeholder="Ej: 150000" required> 
+            <label>Stock (unidades)</label>
+            <input type="number" th:field="*{stock}" min="0" step="1" required>
 
-            <label for="stock">Stock (Unidades disponibles):</label>
-            <input type="number" th:field="*{stock}" id="stock" min="0" placeholder="Ej: 10" required> 
-
-            <!-- Este botón ya tomará el estilo azul y el efecto hover gracias a la etiqueta <button> -->
-            <button type="submit">Guardar en Base de Datos</button>
-
+            <button type="submit">Guardar producto</button>
         </form>
-        
-    </div>
-    <!-- Aquí cerramos el contenedor -->
-
+        <div class="centrado"><a th:href="@{/Producto/listar}">← Cancelar y volver al inventario</a></div>
+    </main>
 </body>
 </html>

@@ -1,65 +1,36 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="/estilos.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos</title>
-
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        th {
-            background-color: #87CEFA; /* Azul claro para los encabezados */
-            color: #003366;
-            font-weight: bold;
-        }
-        tr:hover {
-            background-color: #f0f8ff; /* Efecto hover al pasar el ratón */
-        }
-    </style>
+    <title>Inventario</title>
+    <link rel="stylesheet" th:href="@{/estilos.css}">
 </head>
-
 <body>
-    
-    <!-- Envolvemos la tabla en el contenedor y aumentamos un poco el ancho para que quepan bien las columnas -->
-    <div class="contenedor" style="max-width: 950px;">
-
-        <h1 style="color: #003366; text-align: center;">Lista de Productos</h1>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Precio</th>
-                    <th>Stock</th>
-                    
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr th:each="producto : ${Producto}">
-                    <td th:text="${producto.id}"></td>
-                    <td th:text="${producto.nombre}"></td>
-                    <td th:text="${producto.descripcion}"></td>
-                    <td th:text="${producto.precio}"></td>
-                    <td th:text="${producto.stock}"></td>
-    
-                </tr>
-            </tbody>
-        </table>
-        
-    </div>
-    
+    <div th:replace="~{menu :: navbar}"></div>
+    <main class="contenedor ancho">
+        <div class="acciones">
+            <h1 style="margin:0">Inventario de Productos</h1>
+            <a class="btn btn-ok" th:href="@{/Producto/formulario}">+ Nuevo producto</a>
+        </div>
+        <div class="tabla-wrap">
+            <table>
+                <thead>
+                    <tr><th>ID</th><th>Nombre</th><th>Descripción</th><th>Valor unitario</th><th>Stock</th><th>Acciones</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p : ${Producto}">
+                        <td th:text="${p.id}"></td>
+                        <td th:text="${p.nombre}"></td>
+                        <td th:text="${p.descripcion}"></td>
+                        <!-- ANTES: ${producto.precio} -> ese campo no existe (es valorUnitario) y causaba error 500 -->
+                        <td th:text="${'$' + #numbers.formatDecimal(p.valorUnitario, 0, 'POINT', 2, 'COMMA')}"></td>
+                        <td th:text="${p.stock}"></td>
+                        <td><a class="btn btn-edit btn-sm" th:href="@{/Producto/editar/{id}(id=${p.id})}">Editar</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
 </body>
 </html>

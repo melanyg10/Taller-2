@@ -45,4 +45,19 @@ public class UsuarioDAOImp implements IUsuarioDAO {
             em.persist(usuario);
         }
     }
+
+    @SuppressWarnings("unchecked")
+    @Transactional (readOnly = true)
+    @Override 
+    public List<Usuario> findByEstado(String estado){
+        return em.createQuery("from Usuario where estado = :estado")
+                 .setParameter("estado", estado)
+                 .getResultList();
+    }
+
+    @Transactional (readOnly = true)
+    @Override 
+    public Usuario findById(Long id){
+        return em.find(Usuario.class, id);
+    }
 }

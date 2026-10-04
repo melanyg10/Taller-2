@@ -32,6 +32,12 @@ public class ProductoDAOImp implements IProductoDAO{
         }
     }
 
+    @Transactional 
+    @Override 
+    public Producto findById(Long id){
+        return em.find(Producto.class, id);
+    }
+
 
     
 }

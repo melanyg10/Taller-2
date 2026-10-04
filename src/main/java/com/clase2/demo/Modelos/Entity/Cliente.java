@@ -19,9 +19,9 @@ public class Cliente {
 
     private String nombre; 
     private String apellido;
-    private String email;
+    private String correo;
 
-    @Column (name = "usuario_id")//Llave foránea lógica para saber qué credencial (Usuario) le pertenece a este Cliente
+    @Column (name = "usuario_id")//Llave foránea lógica para saber qué credencial (Usuario) le pertenece a este Cliente 
     private Long usuarioId;
 
     @Column (name = "create_at")
@@ -31,20 +31,18 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(Long id, String nombre, String apellido, String email, Long usuarioId, Date createAt) {
+    public Cliente(Long id, String nombre, String apellido, String correo, Long usuarioId, Date createAt) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.email = email;
-        this.usuarioId = usuarioId;// conexión
+        this.correo = correo;
+        this.usuarioId = usuarioId;
         this.createAt = createAt;
     }
-
 
     public Long getId() {
         return id;
     }
-
 
     public void setId(Long id) {
         this.id = id;
@@ -66,12 +64,20 @@ public class Cliente {
         this.apellido = apellido;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public Long getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     public Date getCreateAt() {
@@ -82,13 +88,7 @@ public class Cliente {
         this.createAt = createAt;
     }
 
-    public Long getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(Long usuarioId) {
-        this.usuarioId = usuarioId;
-    }
+    
 
     
     

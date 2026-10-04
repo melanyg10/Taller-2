@@ -12,7 +12,7 @@ public class Producto {
 
     @Id 
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     
     private String nombre;
     private String descripcion;
@@ -23,54 +23,67 @@ public class Producto {
     public Producto() {// constructor vacio para poder crear productos
     }
 
+
     public Producto(Long id, String nombre, String descripcion, Double valorUnitario, int stock) {
-        Id = id;
+        this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.valorUnitario = valorUnitario;
         this.stock = stock;
-    
     }
+
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
+
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
+
 
     public String getNombre() {
         return nombre;
     }
 
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
 
     public String getDescripcion() {
         return descripcion;
     }
 
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
 
     public Double getValorUnitario() {
         return valorUnitario;
     }
 
+
     public void setValorUnitario(Double valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
+
 
     public int getStock() {
         return stock;
     }
 
+
     public void setStock(int stock) {
         this.stock = stock;
     }
+
+    
+
     
 
     

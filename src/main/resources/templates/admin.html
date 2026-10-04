@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administrador</title>
+    <link rel="stylesheet" th:href="@{/estilos.css}">
+</head>
+<body>
+    <div th:replace="~{menu :: navbar}"></div>
+    <main class="contenedor ancho">
+        <h1>Panel de Administrador</h1>
+        <p class="subtitulo">Solicitudes de registro pendientes de aprobación</p>
+
+        <div class="grid">
+            <a class="card-link" th:href="@{/Producto/listar}"><div class="ico">📦</div><h3>Productos</h3><small>Crear y editar productos</small></a>
+            <a class="card-link" th:href="@{/Cliente/listar}"><div class="ico">👥</div><h3>Clientes</h3><small>Listado de clientes</small></a>
+            <a class="card-link" th:href="@{/admin/compras}"><div class="ico">🧾</div><h3>Compras</h3><small>Consultar encabezados y detalles</small></a>
+        </div>
+
+        <div class="tabla-wrap" th:if="${!#lists.isEmpty(usuarios)}">
+            <table>
+                <thead>
+                    <tr><th>Correo</th><th>Estado</th><th>Asignar rol</th><th>Acción</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:each="usuario : ${usuarios}">
+                        <td th:text="${usuario.correo}"></td>
+                        <td><strong style="color:#ef4444" th:text="${usuario.estado}"></strong></td>
+                        <!-- El <form> va DENTRO de una celda (HTML válido). Ambas celdas
+                             comparten el formulario mediante el atributo form="..." -->
+                        <td>
+                            <form th:id="${'f-' + usuario.id}" th:action="@{/admin/activar}" method="post">
+                                <input type="hidden" name="idUsuario" th:value="${usuario.correo}">
+                            </form>
+                            <select name="nuevoRol" required th:attr="form=${'f-' + usuario.id}">
+                                <option value="" disabled selected>Seleccione...</option>
+                                <option value="CLIENTE">Cliente</option>
+                                <option value="ADMIN">Administrador</option>
+                            </select>
+                        </td>
+                        <td><button class="btn-sm btn-ok" type="submit" th:attr="form=${'f-' + usuario.id}">Activar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="vacio" th:if="${#lists.isEmpty(usuarios)}"> No hay usuarios pendientes por aprobar.</p>
+    </main>
+</body>
+</html>

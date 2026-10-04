@@ -1,40 +1,26 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="/estilos.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
+    <link rel="stylesheet" th:href="@{/estilos.css}">
 </head>
 <body>
-
-    <!-- Envolvemos todo en el contenedor -->
-    <div class="contenedor">
-        
-        <h1 style="color: #003366; text-align: center;">Iniciar Sesión</h1>
-
-        <!-- Muestra el mensaje de error centrado y con un rojo un poco más moderno -->
-        <p th:if="${error}" th:text="${error}" style="color: #e74c3c; text-align: center; font-weight: bold;"></p>
-
-        <!--
-            action="/login" → apunta al POST /login del LoginController
-            method="post"   → envía los datos como POST
-        -->
-        <form action="/login" method="post">
-            <label for="correo">Correo:</label>
+    <div th:replace="~{menu :: navbar}"></div>
+    <main class="contenedor">
+        <h1>Iniciar Sesión</h1>
+        <p class="subtitulo">Bienvenido de nuevo a Mi Tienda Web</p>
+        <p class="alert alert-error" th:if="${error}" th:text="${error}"></p>
+        <p class="alert alert-ok" th:if="${mensaje}" th:text="${mensaje}"></p>
+        <form th:action="@{/login}" method="post">
+            <label for="correo">Correo</label>
             <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required>
-
-            <label for="contrasena">Contraseña:</label>
-            <input type="password" id="contrasena" name="contrasena" placeholder="Ingresa tu contraseña" required>
-
+            <label for="contrasena">Contraseña</label>
+            <input type="password" id="contrasena" name="contrasena" placeholder="Tu contraseña" required>
             <button type="submit">Ingresar</button>
         </form>
-        
-        <div style="text-align: center; margin-top: 15px;">
-            <p>¿No tienes una cuenta? <a href="/login/registro" style="color: #003366; font-weight: bold;">Regístrate aquí</a></p>
-        </div>
-        
-    </div>
-
+        <div class="centrado">¿No tienes cuenta? <a th:href="@{/login/registro}"><strong>Regístrate aquí</strong></a></div>
+    </main>
 </body>
 </html>

@@ -63,8 +63,10 @@ public class LoginController {
         // Redirigir según el rol del usuario
         if (usuario.getRol().equalsIgnoreCase("ADMIN")) {
             return "redirect:/admin";
+        } else if (usuario.getRol().equalsIgnoreCase("CLIENTE")) {
+            return "redirect:/compra"; // Lo enviamos a los productos
         } else {
-            return "redirect:/home";
+            return "redirect:/login"; // Por seguridad
         }
     }
 
@@ -95,7 +97,7 @@ public class LoginController {
             Usuario nuevoUsuario = new Usuario();
             nuevoUsuario.setCorreo(correo);
             nuevoUsuario.setContrasena(contrasena);
-            nuevoUsuario.setEstado("Pendiente");//asi es el estado inicial requerido
+            nuevoUsuario.setEstado("Pendiente/Inactivo");//asi es el estado inicial requerido
             nuevoUsuario.setRol("Por asignar");
 
             usuarioDAO.save(nuevoUsuario);

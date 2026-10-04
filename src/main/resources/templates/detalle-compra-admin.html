@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de compra</title>
+    <link rel="stylesheet" th:href="@{/estilos.css}">
+</head>
+<body>
+    <div th:replace="~{menu :: navbar}"></div>
+
+    <main class="contenedor ancho">
+        <h1>Detalle de compra</h1>
+
+        <p class="subtitulo"
+           th:text="${'Compra n.º ' + encabezado.id}">
+        </p>
+
+        <section class="grid">
+            <article class="card-link">
+                <h3>Cliente</h3>
+
+                <p th:text="${encabezado.cliente.nombre
+                    + ' ' + encabezado.cliente.apellido}">
+                </p>
+
+                <small th:text="${encabezado.cliente.correo}"></small>
+            </article>
+
+            <article class="card-link">
+                <h3>Fecha</h3>
+
+                <p th:text="${#dates.format(
+                    encabezado.fecha, 'dd/MM/yyyy HH:mm')}">
+                </p>
+            </article>
+
+            <article class="card-link">
+                <h3>Total de la compra</h3>
+
+                <p th:text="${'$' + #numbers.formatDecimal(
+                    encabezado.total, 0, 'POINT', 2, 'COMMA')}">
+                </p>
+            </article>
+        </section>
+
+        <h2 style="margin-top:28px">Productos comprados</h2>
+
+        <div class="tabla-wrap"
+             th:if="${!#lists.isEmpty(detalles)}">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Valor subtotal</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="detalle : ${detalles}">
+                        <td th:text="${detalle.producto.nombre}"></td>
+                        <td th:text="${detalle.producto.descripcion}"></td>
+                        <td th:text="${detalle.cantidad}"></td>
+
+                        <td th:text="${'$' + #numbers.formatDecimal(
+                            detalle.subtotal, 0, 'POINT', 2, 'COMMA')}">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="vacio"
+           th:if="${#lists.isEmpty(detalles)}">
+            Esta compra no tiene productos asociados.
+        </p>
+
+        <div class="centrado">
+            <a class="btn btn-edit"
+               th:href="@{/admin/compras}">
+                Volver a compras
+            </a>
+        </div>
+    </main>
+</body>
+</html>

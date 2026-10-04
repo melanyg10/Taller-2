@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Factura de compra</title>
+    <style>
+        body{
+         font-family: Arial, sans-serif; 
+         padding: 20px; color: #333; 
+        }
+        .factura-container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            border: 1px solid #ccc; 
+            padding: 30px; 
+        }
+        .cabecera { 
+            text-align: center; 
+            margin-bottom: 30px; 
+        }
+        table { 
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px; 
+        }
+        th, td { 
+            border: 1px solid #ddd;
+            padding: 10px; text-align: left;
+        }
+        th { 
+            background-color: #f4f4f4; 
+        }
+        .total { 
+            text-align: right; 
+            font-size: 1.2em; 
+            font-weight: bold;
+             margin-top: 20px;
+        }
+        /*ocultar elementos al imprimir*/
+        @media print{
+            .no-imprimir{
+                display:none !important;
+            }
+            .factura-container{
+                border:none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="no-imprimir" style="text-align: center; margin-bottom:20px;">
+        <button onclick="window.print()"style="padding: 10px 20px; background: #4f46e5; color:white; border:none; cursor: pointer;">🖨️ Imprimir / Guardar PDF</button>
+        <a th:href="@{/compra}" style="margin-left:10px; text-decoration:none;">Volver atrás</a>
+    </div>
+
+    <div class="factura-container">
+        <div class="cabecera">
+            <h1>Tienda</h1>
+            <p>Factura de Venta N° <span th:text="${compra.id}">123</span></p>
+            <p>Fecha:<span th:text="${compra.fecha}">04/10/2026</span></p>
+        </div>
+
+        <div class="datos-cliente">
+            <h3>Datos del Cliente:</h3>
+            <p><strong>Nombre:</strong> <span th:text="${compra.cliente.nombre}">Melany</span></p>
+            <p><strong>Correo:</strong> <span th:text="${compra.cliente.correo}">correo@ejemplo.com</span></p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unit.</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="detalle : ${detalles}">
+                    <td th:text="${detalle.producto.nombre}">Producto</td>
+                    <td th:text="${detalle.cantidad}">2</td>
+                    <td th:text="${detalle.producto.valorUnitario}">$100</td>
+                    <td th:text="${detalle.subtotal}">$200</td>
+                </tr>
+
+            </tbody>
+            </table>
+
+            <div class="total">
+                Total a Pagar:$<span th:text="${compra.total}">500</span>
+            </div>
+    </div>
+</body>
+
+</html>"

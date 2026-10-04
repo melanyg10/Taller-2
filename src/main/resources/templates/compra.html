@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realizar Compra</title>
+    <link rel="stylesheet" th:href="@{/estilos.css}">
+</head>
+<body>
+    <div th:replace="~{menu :: navbar}"></div>
+    <main class="contenedor ancho">
+        <h2>Catálogo de Productos</h2>
+        <p class="subtitulo">Comprador: <strong th:text="${cliente.nombre + ' ' + cliente.apellido}"></strong></p>
+        <p class="alert alert-ok" th:if="${exito}" th:text="${exito}"></p>
+        <p class="alert alert-error" th:if="${error}" th:text="${error}"></p>
+
+        <form th:action="@{/compra/confirmar}" method="post">
+            <div class="tabla-wrap">
+                <table>
+                    <thead>
+                        <tr><th>Producto</th><th>Descripción</th><th>Precio</th><th>Stock</th><th>Cantidad</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="prod : ${productos}">
+                            <td><strong th:text="${prod.nombre}"></strong></td>
+                            <td th:text="${prod.descripcion}"></td>
+                            <td th:text="${'$' + #numbers.formatDecimal(prod.valorUnitario, 0, 'POINT', 2, 'COMMA')}"></td>
+                            <td th:text="${prod.stock}"></td>
+                            <td>
+                                <input type="hidden" name="productoIds" th:value="${prod.id}">
+                                <input type="number" name="cantidades" value="0" min="0" step="1" th:max="${prod.stock}">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button type="submit" class="btn-ok" style="margin-top:20px">Confirmar compra</button>
+        </form>
+    </main>
+</body>
+</html>

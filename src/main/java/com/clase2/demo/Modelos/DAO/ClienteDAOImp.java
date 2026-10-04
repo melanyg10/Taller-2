@@ -24,6 +24,35 @@ public class ClienteDAOImp implements IClienteDAO{
         return em.createQuery( "from Cliente").getResultList();
     }
 
+    @SuppressWarnings("unchecked")
+    @Transactional (readOnly=true)
+    @Override 
+    public Cliente findByCorreo(String correo){
+        // Busca en la tabla 'clientes' si ya existe alguien con ese correo
+        List<Cliente> resultados = em.createQuery("from Cliente where correo = :correo")
+        .setParameter("correo", correo)
+        .getResultList();
+
+        if(resultados.isEmpty()){
+            return null;// Si no lo encuentra, retorna nulo (Primer Ingreso)
+        }
+
+        return resultados.get(0);// Si lo encuentra, devuelve sus datos
+    }
+
+    @Transactional 
+    @Override 
+    public void save(Cliente cliente){
+
+        if(cliente.getId() != null && cliente.getId() > 0){
+            em.merge(cliente);
+        }else{
+            em.persist(cliente);
+        }
+    }
+
+
+
 
     
 }

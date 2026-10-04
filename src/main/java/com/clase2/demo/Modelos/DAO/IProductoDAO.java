@@ -9,5 +9,7 @@ public interface IProductoDAO {
     public List<Producto> findAll();
 
     public void save(Producto producto);
+
+    public Producto findById(Long id);
     
 }
