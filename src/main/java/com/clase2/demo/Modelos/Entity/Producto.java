@@ -1,5 +1,6 @@
 package com.clase2.demo.Modelos.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,18 +19,22 @@ public class Producto {
     private String descripcion;
     private Double valorUnitario;
     private int stock;
+
+    @Column(name="activo")
+    private boolean activo = true;
   
 
     public Producto() {// constructor vacio para poder crear productos
     }
 
 
-    public Producto(Long id, String nombre, String descripcion, Double valorUnitario, int stock) {
+    public Producto(Long id, String nombre, String descripcion, Double valorUnitario, int stock, boolean activo) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.valorUnitario = valorUnitario;
         this.stock = stock;
+        this.activo = activo;
     }
 
 
@@ -82,11 +87,16 @@ public class Producto {
         this.stock = stock;
     }
 
-    
 
-    
+    public boolean isActivo() {
+        return activo;
+    }
 
-    
+
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
+
 }
 
  

@@ -23,10 +23,15 @@
                         <td th:text="${p.id}"></td>
                         <td th:text="${p.nombre}"></td>
                         <td th:text="${p.descripcion}"></td>
-                        <!-- ANTES: ${producto.precio} -> ese campo no existe (es valorUnitario) y causaba error 500 -->
                         <td th:text="${'$' + #numbers.formatDecimal(p.valorUnitario, 0, 'POINT', 2, 'COMMA')}"></td>
                         <td th:text="${p.stock}"></td>
-                        <td><a class="btn btn-edit btn-sm" th:href="@{/Producto/editar/{id}(id=${p.id})}">Editar</a></td>
+                        <td style="display: flex; gap: 5px; align-items: center;">
+                          <a class="btn btn-edit btn-sm" th:href="@{/Producto/editar/{id}(id=${p.id})}">Editar</a>
+                          <a class="btn btn-delete btn-sm" style="background-color: #dc3545; color: white;" 
+                          th:href="@{/Producto/eliminar/{id}(id=${p.id})}" 
+                          onclick="return confirm('¿Estás seguro de que deseas eliminar este producto?');">
+                          Eliminar</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

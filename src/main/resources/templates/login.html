@@ -10,7 +10,7 @@
     <div th:replace="~{menu :: navbar}"></div>
     <main class="contenedor">
         <h1>Iniciar Sesión</h1>
-        <p class="subtitulo">Bienvenido de nuevo a Mi Tienda Web</p>
+        <p class="subtitulo">Bienvenido de nuevo a Sistema de Ventas e Inventario</p>
         <p class="alert alert-error" th:if="${error}" th:text="${error}"></p>
         <p class="alert alert-ok" th:if="${mensaje}" th:text="${mensaje}"></p>
         <form th:action="@{/login}" method="post">

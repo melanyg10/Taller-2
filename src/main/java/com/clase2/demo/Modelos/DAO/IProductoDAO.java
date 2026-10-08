@@ -11,5 +11,7 @@ public interface IProductoDAO {
     public void save(Producto producto);
 
     public Producto findById(Long id);
+
+    public void eliminar(Long id);
     
 }

@@ -19,7 +19,7 @@ public class ProductoDAOImp implements IProductoDAO{
     @Transactional (readOnly=true)
     @Override 
     public List<Producto> findAll() {
-        return em.createQuery( "from Producto").getResultList();
+        return em.createQuery( "from Producto p where p.activo = true").getResultList();
     }
 
     @Transactional 
@@ -36,6 +36,17 @@ public class ProductoDAOImp implements IProductoDAO{
     @Override 
     public Producto findById(Long id){
         return em.find(Producto.class, id);
+    }
+
+    @Override 
+    @Transactional
+    public void eliminar(Long id){
+
+        Producto producto = em.find(Producto.class, id);
+        if (producto != null) {
+            producto.setActivo(false);
+            em.merge(producto);
+        }
     }
 
 

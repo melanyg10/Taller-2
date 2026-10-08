@@ -80,4 +80,12 @@ public class ProductoController {
         String rol = (String)session.getAttribute("usuarioRol");
         return rol != null && rol.equalsIgnoreCase("ADMIN");
     }
+
+    @GetMapping ("/eliminar/{id}")
+    public String eliminar(@PathVariable (value = "id") Long id){
+        if(id>0){
+            productoDAO.eliminar(id);
+        }
+        return "redirect:/Producto/listar";
+    }
 }
